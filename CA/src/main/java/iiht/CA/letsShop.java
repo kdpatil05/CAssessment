@@ -1,5 +1,6 @@
 package iiht.CA;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -37,13 +38,26 @@ public class letsShop {
 		
 		driver.findElement(By.xpath("//span[normalize-space()='Angelou Study Desk']")).click();
 		
+		//opening in new tab
+		ArrayList<String> newTab = new ArrayList<String>(driver.getWindowHandles());
+		driver.switchTo().window(newTab.get(1));
+		
 		//click on add to cart button
-		driver.findElement(By.xpath("//input[@value='Add to Cart']")).click();
+		driver.findElement(By.id("add-to-cart-button")).click();
 		driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
 		
+		//click on checkout button
+		driver.findElement(By.id("checkout-link")).click();
 		
-		//close the browser
+		//enter details
+		driver.findElement(By.id("order_ship_address_attributes_zipcode")).sendKeys("400001"); //enter pincode
+		driver.findElement(By.id("order_ship_address_attributes_address1")).sendKeys("abcd,xyz,near 123"); //enter address
+		driver.findElement(By.id("order_ship_address_attributes_firstname")).sendKeys("Kalpesh"); //enter first Name
+		driver.findElement(By.id("order_ship_address_attributes_lastname")).sendKeys("Patil"); //enter last Name
+		driver.findElement(By.id("order_ship_address_attributes_phone")).sendKeys("1234567890"); //enter mobile number
+		
+		// driver.findElement(By.id("address-form-submit")).click(); //click on Save and Continue Button
+		
 		driver.close();
-		
 	}
 }
